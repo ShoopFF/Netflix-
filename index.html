@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión en TV</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header / Logo Centrado y Grande */
+        header {
+            padding: 40px 4% 10px 4%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 65px;
+            width: auto;
+            display: block;
+        }
+
+        /* Contenido Principal */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 20px 40px 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #000000;
+            margin-bottom: 40px;
+            line-height: 1.2;
+        }
+
+        /* Inputs para el Código */
+        .code-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .code-input {
+            width: 35px;
+            height: 45px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            border: none;
+            border-bottom: 2px solid #b3b3b3;
+            outline: none;
+            background: transparent;
+        }
+
+        .code-input:focus {
+            border-bottom-color: #000000;
+        }
+
+        .divider {
+            font-size: 20px;
+            color: #b3b3b3;
+            margin: 0 4px;
+            font-weight: bold;
+        }
+
+        /* Botón (Deshabilitado por defecto) */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background-color: #cccccc;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: not-allowed;
+            margin-bottom: 40px;
+            transition: background-color 0.2s ease;
+        }
+
+        /* Botón Activo (Color rojo al ingresar todos los caracteres) */
+        .btn-submit.active {
+            background-color: #E50914;
+            cursor: pointer;
+        }
+
+        /* Texto Suscríbete */
+        .signup-text {
+            font-size: 15px;
+            color: #737373;
+        }
+
+        .signup-text a {
+            color: #000000;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .signup-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f3f3f3;
+            padding: 30px 4% 40px 4%;
+            color: #737373;
+            font-size: 13px;
+            border-top: 1px solid #e6e6e6;
+        }
+
+        .footer-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            margin-bottom: 20px;
+        }
+
+        .footer-title a {
+            color: #737373;
+            text-decoration: none;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #737373;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (min-width: 600px) {
+            .logo-img {
+                height: 80px;
+            }
+            .code-input {
+                width: 45px;
+                height: 55px;
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado con el Logo -->
+    <header>
+        <img src="https://infonegocios.info/content/images/2022/07/20/20155/netflix-logo-top-100-brands-01-cba.jpg" alt="Logo" class="logo-img">
+    </header>
+
+    <!-- Contenido Principal -->
+    <main>
+        <h1>Ingresa el código que aparece en tu TV</h1>
+
+        <form style="width: 100%;">
+            <div class="code-container">
+                <input type="text" class="code-input" maxlength="1" pattern="[A-Za-z0-9]">
+                <input type="text" class="code-input" maxlength="1" pattern="[A-Za-z0-9]">
+                <input type="text" class="code-input" maxlength="1" pattern="[A-Za-z0-9]">
+                <input type="text" class="code-input" maxlength="1" pattern="[A-Za-z0-9]">
+                <span class="divider">-</span>
+                <input type="text" class="code-input" maxlength="1" pattern="[A-Za-z0-9]">
+                <input type="text" class="code-input" maxlength="1" pattern="[A-Za-z0-9]">
+                <input type="text" class="code-input" maxlength="1" pattern="[A-Za-z0-9]">
+                <input type="text" class="code-input" maxlength="1" pattern="[A-Za-z0-9]">
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitBtn" disabled>Continuar</button>
+        </form>
+
+        <p class="signup-text">
+            ¿Primera vez en Netflix? <a href="#">Suscríbete ahora.</a>
+        </p>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="footer-container">
+            <p class="footer-title">¿Preguntas? Llama al <a href="tel:+528333792877">+52 8333792877</a></p>
+            <ul class="footer-links">
+                <li><a href="#">Preguntas frecuentes</a></li>
+                <li><a href="https://wa.me/528333792877" target="_blank" rel="noopener noreferrer">Centro de ayuda</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        const inputs = document.querySelectorAll('.code-input');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Función para validar si todos los inputs tienen valor
+        function checkInputs() {
+            const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
+            if (allFilled) {
+                submitBtn.classList.add('active');
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.classList.remove('active');
+                submitBtn.disabled = true;
+            }
+        }
+        
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+                checkInputs();
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && input.value === '' && index > 0) {
+                    inputs[index - 1].focus();
+                }
+                setTimeout(checkInputs, 10);
+            });
+        });
+    </script>
+</body>
+</html>
+
